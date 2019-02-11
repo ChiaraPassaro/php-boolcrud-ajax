@@ -9,11 +9,11 @@
     d. Tipo Documento
     e. Numero Documento
 */
-    include_once '../../functions.php';
-    include_once '../../env.php';
+    include_once 'functions.php';
+    include_once 'env.php';
     $path = 'http://' . $path_server . '/' . $path_root . '/';
 
-    include '../../partials/_header.php';
+    include 'partials/_header.php';
 
 
     $this_file = basename(__FILE__);
@@ -25,6 +25,7 @@
     $document_type = (!empty($_POST['document_type'])) ?  $_POST['document_type'] : false;
     $document_number = (!empty($_POST['document_number'])) ?  $_POST['document_number'] : false;
     ?>
+
 <div class="container">
     <?php if(!empty($_POST)){ //se ho un dato in post c'è un errore?>
         <div class="row">

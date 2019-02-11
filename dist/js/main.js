@@ -10471,23 +10471,24 @@ return jQuery;
 
 var $ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 
-var url = 'http://localhost/php-boolcrud-ajax/show';
 $(document).ready(function () {
-  //$('#updated-form').submit();
-  $.ajax({
-    'url': url,
-    'method': 'POST',
-    'data': {
-      'id': 55
-    },
-    'success': function success(data) {
-      console.log("success");
-      console.log(data);
-    },
-    'error': function error(err) {
-      console.log('error');
-    }
-  });
+  var $showOspiteContainer = $('.show-ospite');
+
+  if ($showOspiteContainer.length > 0) {
+    var idOspite = $showOspiteContainer.attr('data-id');
+    var url = 'http://localhost/php-boolcrud-ajax/show/id/' + idOspite;
+    $.ajax({
+      'url': url,
+      'method': 'GET',
+      'success': function success(data) {
+        console.log("success");
+        console.log(data);
+      },
+      'error': function error(err) {
+        console.log('error');
+      }
+    });
+  }
 });
 
 /***/ }),

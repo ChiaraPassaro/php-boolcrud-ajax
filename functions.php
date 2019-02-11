@@ -146,4 +146,10 @@ function getFormatDate($date, $format = 'Y-m-d H:i:s')
 }
 
 
+function accessDenied($file){
+    $request_uri_folders = explode('/', $_SERVER['REQUEST_URI']);
 
+    if($request_uri_folders[count($request_uri_folders) - 1] === $file){
+        die('Accesso non consentito');
+    }
+}

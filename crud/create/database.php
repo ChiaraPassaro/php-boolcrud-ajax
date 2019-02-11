@@ -31,27 +31,8 @@
         $document_number = $_POST['document_number'];
     } else {
         //se c'è un errore creo un form che mi segnala gli input sbagliati
-    ?>
-
-     <form action="create.php" method="post" id="updated-form">
-         <?php
-         //se non c'è un campo invio errore altrimenti rinvio il dato
-         foreach ($post_arguments as $argument){
-             if(empty($_POST[$argument])){
-                echo  "<input type='hidden' name='" . $argument . "_error' value='true'>";
-             } else {
-                 if($argument === 'date_of_birth'){
-                    echo  "<input type='hidden' name='$argument' value='$date_birth'>";
-                 }
-                echo  "<input type='hidden' name='$argument' value='$_POST[$argument]'>";
-             }
-         } ?>
-            </form>
-        </div>
-    </div>
-    <script src="../../dist/js/main.js"></script>
-
-   <?php return; }
+        die('error');
+      }
 
     $connection = connectDB();
 
@@ -69,25 +50,12 @@
         $bind_param_var = $id;
         $guest = getData($connection, $query, $bind_param_type, $bind_param_var);
     } else {
-        $message = 'Nessuna modifica effettuata';
+        die('error');
+        //$message = 'Nessuna modifica effettuata';
     }
+
+    echo json_encode($guest);
 ?>
-    <div class="container">
-        <div class="row">
-            <?php
-        if(!empty($message)){ ?>
-            <h1><?php echo $message; ?></h1>
-        <?php }
-        else { ?>
-            <form action="<?php echo $path; ?>index.php" method="post" id="updated-form">
-                <input type="hidden" name="id" value="<?php echo $guest['id']; ?>">
-                <input type="hidden" name="message" value="Ospite inserito con ID <?php echo $guest['id']; ?>">
-            </form>
-        <?php } ?>
 
-        </div>
-    </div>
-
-<script src="../../dist/js/main.js"></script>
 
 

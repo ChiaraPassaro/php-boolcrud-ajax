@@ -1,20 +1,20 @@
 var $ = require("jquery");
-var url = 'http://localhost/php-boolcrud-ajax/show';
 $(document).ready(function () {
-    //$('#updated-form').submit();
+    var $showOspiteContainer = $('.show-ospite');
+    if($showOspiteContainer.length > 0){
+        var idOspite = $showOspiteContainer.attr('data-id');
+        var url = 'http://localhost/php-boolcrud-ajax/show/id/'+idOspite;
+        $.ajax({
+            'url': url,
+            'method': 'GET',
+            'success': function (data) {
+                console.log("success");
+                console.log(data);
+            },
+            'error': function (err) {
+                console.log('error');
+            }
+        });
+    }
 
-    $.ajax({
-        'url': url,
-        'method': 'POST',
-        'data': {
-            'id' : 55
-        },
-        'success': function (data) {
-            console.log("success");
-            console.log(data);
-        },
-        'error': function (err) {
-            console.log('error');
-        }
-    });
 });
