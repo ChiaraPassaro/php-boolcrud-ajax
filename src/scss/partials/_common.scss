@@ -1,0 +1,27 @@
+@keyframes flash {
+  0%   {background-color: darken($alertColor, 20);}
+  100%  {background-color: $alertColor;}
+}
+
+.navbar-b{
+  margin-bottom: 40px;
+}
+.alert{
+  background: $alertColor;
+  animation-name: flash;
+  animation-duration: 0.8s;
+  animation-iteration-count: 1;
+}
+
+.table{
+  margin-top: 30px;
+}
+.tr-modified{
+  background: $alertColor;
+  animation-name: flash;
+  animation-duration: 1s;
+  animation-iteration-count: 1;
+}
+.form-control.input-error{
+  border-color: red;
+}
