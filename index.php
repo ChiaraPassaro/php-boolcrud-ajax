@@ -32,12 +32,15 @@ if(!empty($request_uri_folders[3]) && $request_uri_folders[3] === 'id'){
 switch ($request_uri[0]) {
     // Home page
     case $path_index:
-        require 'home.php';
+        $required = true;
+        require $ajax_path;
         break;
     case $show_id_url:
+        $required = true;
         require $show_path;
         break;
     case $create_url:
+        $required = true;
         require $create_path;
         break;
     case 'ajax':
