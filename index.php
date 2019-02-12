@@ -14,14 +14,14 @@ $path_index = getPath(basename(__FILE__));
 $ajax_path = 'ajax/index.php';
 $show_path = 'crud/show/show.php';
 $delete_path = 'crud/delete/database.php';
-$create_path = 'crud/create/database.php';
+//$create_path = 'crud/create/database.php';
 $show_id_url = null;
-$create_url = null;
+//$create_url = null;
 $delete_id_url = null;
 
-if($request_uri_folders[2] === 'create'){
+/*if($request_uri_folders[2] === 'create'){
     $create_url = $path_index . 'create';
-}
+}*/
 
 //divido il percorso se c'è id
 if(!empty($request_uri_folders[3]) && $request_uri_folders[3] === 'id'){
@@ -45,10 +45,6 @@ switch ($request_uri[0]) {
         $required = true;
         require $show_path;
         break;
-    case $create_url:
-        $required = true;
-        require $create_path;
-        break;
     case $delete_id_url:
         $required = true;
         require $delete_path;
@@ -62,3 +58,8 @@ switch ($request_uri[0]) {
         break;
 }
 
+
+/* case $create_url:
+     $required = true;
+     require $create_path;
+     break;*/
