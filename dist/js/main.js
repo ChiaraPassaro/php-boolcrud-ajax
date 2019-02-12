@@ -15276,6 +15276,11 @@ $(document).ready(function () {
     event.preventDefault();
     getAll();
   });
+  $(document).on('click', '.btn-delete', function (event) {
+    event.preventDefault();
+    var url = $(this).attr('href');
+    deleteGuest(url);
+  });
 });
 
 function printData(data, source) {
@@ -15326,6 +15331,29 @@ function getAll() {
       console.log('error');
     }
   });
+}
+
+function deleteGuest(url) {
+  var source = $('#delete-template').html();
+  $.ajax({
+    'url': url,
+    'method': 'POST',
+    'success': function success(data) {
+      printAlert(JSON.parse(data), source);
+    },
+    'error': function error(err) {
+      console.log(err);
+    }
+  });
+}
+
+function printAlert(data, source) {
+  var wrapper = $('.alert');
+  var template = handlebars_dist_cjs_handlebars_js__WEBPACK_IMPORTED_MODULE_0___default.a.compile(source);
+  var html = template(data);
+  wrapper.append(html);
+  console.log(wrapper);
+  getAll();
 }
 
 /***/ }),

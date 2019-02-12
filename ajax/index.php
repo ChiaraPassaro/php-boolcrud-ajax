@@ -9,6 +9,7 @@
     <title>Document</title>
 </head>
 <body>
+<div class="alert"></div>
 <div class="show-ospiti">
 
 </div>
@@ -26,6 +27,7 @@
                    <td>{{name}}</td>
                    <td>{{lastname}}</td>
                    <td><a href="http://<?php echo $path_server . '/' . $path_root ?>/show/id/{{id}}" class="btn btn-primary btn-show">Visualizza</a></td>
+                   <td><a href="http://<?php echo $path_server . '/' . $path_root ?>/delete/id/{{id}}" class="btn btn-primary btn-delete">Cancella</a></td>
                </tr>
            {{/each}}
        </tbody>
@@ -57,6 +59,11 @@
         </tbody>
     </table>
 </script>
+
+<script id="delete-template" type="text/x-handlebars-template">
+    <div class="alert">{{status}} ID: {{id}}</div>
+</script>
+
 <script src="http://<?php echo $path_server . '/' . $path_root ?>/dist/js/main.js"></script>
 </body>
 </html>

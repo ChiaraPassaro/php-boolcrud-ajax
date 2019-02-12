@@ -30,7 +30,6 @@
         $document_type = $_POST['document_type'];
         $document_number = $_POST['document_number'];
     } else {
-        //se c'è un errore creo un form che mi segnala gli input sbagliati
         die('error');
       }
 

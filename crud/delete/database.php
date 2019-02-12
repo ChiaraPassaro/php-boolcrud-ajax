@@ -1,45 +1,28 @@
 <?php
-    include_once '../../functions.php';
-    include_once '../../env.php';
+include_once 'functions.php';
+include_once 'env.php';
 
-    $path = 'http://' . $path_server . '/' . $path_root . '/';
+$path = 'http://' . $path_server . '/' . $path_root . '/';
 
-    if(!empty($_POST['id'])){
-        $id = $_POST['id'];
-    } else {
-        die('Id non passato');
-    }
+if (!empty($delete_id)) {
+    $id = $delete_id;
+} else {
+    die('Id non passato');
+}
 
-    $connection = connectDB();
-    $query = "DELETE FROM ospiti WHERE id = ?";
+$connection = connectDB();
+$query = "DELETE FROM ospiti WHERE id = ?";
 
-    $bind_param_type = "s";
-    $bind_param_var = $id;
+$bind_param_type = "s";
+$bind_param_var = $id;
 
-    $results = modifyData($connection, $query, $bind_param_type, $bind_param_var);
-    if($results > 0){
+$results = modifyData($connection, $query, $bind_param_type, $bind_param_var);
+if ($results > 0) {
+    $response = ['status' => 'delete', 'id' => $id];
+    echo json_encode($response);
+} else {
+    $response = ['status' => 'not delete'];
+    echo json_encode($response);
+}
 
-    } else {
-        $message = 'Operazione non effettuata';
-    }
 ?>
-
-    <div class="container">
-        <div class="row">
-            <?php
-        if(!empty($message)){ ?>
-            <h1><?php echo $message; ?></h1>
-        <?php }
-        else { ?>
-            <form action="<?php echo $path; ?>index.php" method="post" id="updated-form">
-                <input type="hidden" name="delete_message" value="L'ospite con ID <?php echo $id ?> è stato eliminato">
-            </form>
-        <?php } ?>
-
-        </div>
-    </div>
-
-<script src="../../dist/js/main.js"></script>
-
-
-
