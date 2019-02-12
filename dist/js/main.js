@@ -15278,7 +15278,7 @@ $(document).ready(function () {
   });
   $(document).on('click', '.btn-delete', function (event) {
     event.preventDefault();
-    var url = $(this).attr('href');
+    var url = $(this).parent().attr('action');
     deleteGuest(url);
   });
 });
@@ -15316,7 +15316,8 @@ function getGuest(url) {
 }
 
 function getAll() {
-  var urlAllGuests = 'database.php';
+  var urlAllGuests = 'http://' + window.location.hostname + window.location.pathname + 'crud/guests/alldb.php'; //console.log(urlAllGuests);
+
   var source = $('#table-template').html();
   $.ajax({
     'url': urlAllGuests,
@@ -15325,6 +15326,7 @@ function getAll() {
       'ajax': true
     },
     'success': function success(data) {
+      //console.log(data);
       printData(JSON.parse(data), source);
     },
     'error': function error(err) {
@@ -15338,6 +15340,10 @@ function deleteGuest(url) {
   $.ajax({
     'url': url,
     'method': 'POST',
+    'data': {
+      'ajax': true,
+      'request': 'delete'
+    },
     'success': function success(data) {
       printAlert(JSON.parse(data), source);
     },
@@ -15350,9 +15356,20 @@ function deleteGuest(url) {
 function printAlert(data, source) {
   var wrapper = $('.alert');
   var template = handlebars_dist_cjs_handlebars_js__WEBPACK_IMPORTED_MODULE_0___default.a.compile(source);
-  var html = template(data);
+
+  if (data.status === 'delete') {
+    var context = {
+      'delete': data.id
+    };
+  } else {
+    var context = {
+      'error': 'nessuna modifica effettuata'
+    };
+  }
+
+  var html = template(context);
   wrapper.append(html);
-  console.log(wrapper);
+  wrapper.removeClass('display-none');
   getAll();
 }
 

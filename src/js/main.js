@@ -2,7 +2,6 @@ var $ = require("jquery");
 import Handlebars from 'handlebars/dist/cjs/handlebars.js';
 
 $(document).ready(function () {
-
     getAll();
 
     $(document).on('click', '.btn-show', function (event) {
@@ -18,7 +17,7 @@ $(document).ready(function () {
 
     $(document).on('click', '.btn-delete', function (event) {
         event.preventDefault();
-        var url = $(this).attr('href');
+        var url = $(this).parent().attr('action');
         deleteGuest(url);
     });
 
@@ -56,13 +55,15 @@ function getGuest(url) {
 }
 
 function getAll() {
-    var urlAllGuests = 'database.php';
+    var urlAllGuests = 'http://' + window.location.hostname + window.location.pathname + 'crud/guests/alldb.php';
+    //console.log(urlAllGuests);
     var source   = $('#table-template').html();
     $.ajax({
         'url': urlAllGuests,
         'method': 'GET',
         'data': {'ajax': true},
         'success': function (data) {
+            //console.log(data);
             printData(JSON.parse(data), source);
         },
         'error': function (err) {
@@ -77,6 +78,7 @@ function deleteGuest(url) {
     $.ajax({
         'url': url,
         'method': 'POST',
+        'data': {'ajax': true, 'request': 'delete'},
         'success': function (data) {
             printAlert(JSON.parse(data), source);
         },
@@ -89,9 +91,17 @@ function deleteGuest(url) {
 function printAlert(data, source) {
     var wrapper = $('.alert');
     var template = Handlebars.compile(source);
-
-    var html  = template(data);
+    if(data.status === 'delete'){
+        var context = {
+            'delete': data.id
+        };
+    } else {
+        var context = {
+            'error': 'nessuna modifica effettuata'
+        };
+    }
+    var html  = template(context);
     wrapper.append(html);
-    console.log(wrapper);
+    wrapper.removeClass('display-none');
     getAll();
 }

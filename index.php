@@ -12,26 +12,17 @@ $path_index = getPath(basename(__FILE__));
 
 //Salvo le variabili che portano alle varie pagine
 $ajax_path = 'ajax/index.php';
-$show_path = 'crud/show/show.php';
-$delete_path = 'crud/delete/database.php';
-//$create_path = 'crud/create/database.php';
+$show_path = 'crud/guests/show.php';
 $show_id_url = null;
-//$create_url = null;
-$delete_id_url = null;
-
-/*if($request_uri_folders[2] === 'create'){
-    $create_url = $path_index . 'create';
-}*/
 
 //divido il percorso se c'è id
 if(!empty($request_uri_folders[3]) && $request_uri_folders[3] === 'id'){
-    if($request_uri_folders[2] === 'show'){
-        $show_id_url = $path_index . 'show/id/' . $request_uri_folders[4];
-        $show_id = $request_uri_folders[4];
-    }
-    if($request_uri_folders[2] === 'delete'){
-        $delete_id_url = $path_index . 'delete/id/' . $request_uri_folders[4];
+    if(!empty($_POST['request']) && $_POST['request'] === 'delete'){
         $delete_id = $request_uri_folders[4];
+    }
+    if($request_uri_folders[2] === 'guest'){
+        $show_id_url = $path_index . 'guest/id/' . $request_uri_folders[4];
+        $show_id = $request_uri_folders[4];
     }
 }
 
@@ -45,10 +36,6 @@ switch ($request_uri[0]) {
         $required = true;
         require $show_path;
         break;
-    case $delete_id_url:
-        $required = true;
-        require $delete_path;
-        break;
     case 'ajax':
         require $ajax_path;
         break;   
@@ -57,9 +44,3 @@ switch ($request_uri[0]) {
         require '404.php';
         break;
 }
-
-
-/* case $create_url:
-     $required = true;
-     require $create_path;
-     break;*/

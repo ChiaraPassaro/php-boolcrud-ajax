@@ -7,8 +7,11 @@
         accessDenied(basename(__FILE__));
     }
     include 'showdb.php';
-    if($results){
-        $guest[] = $results;
+    if(!empty($response)){
+         echo json_encode($response);
+    }
+    if(!empty($guests)){
+        $guest[] = $guests;
         echo json_encode($guest);
     }
 
